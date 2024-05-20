@@ -958,6 +958,24 @@ class Netgear(object):
             c.ENABLE_TRAFFIC_METER,
             {"NewTrafficMeterEnable": value},
         )
+    
+    def is_dlna_enabled(self):	
+        """
+        Check if DLNA is enabled
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG ,"IsDLNAEnabled",)
+
+    def is_dlna_supported(self):	
+        """
+        Check if DLNA is supported
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG ,"IsDLNASupported",)
+        
+    def get_time_zone_info(self):	
+        """
+        Get time zone information
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG ,"GetTimeZoneInfo",)
 
     def get_lan_config_sec_info(self):
         """
@@ -970,7 +988,7 @@ class Netgear(object):
         """
         return self._get(
             c.SERVICE_LAN_CONFIG_SECURITY,
-            "GetInfo",
+            c.GET_LAN_INFO,
         )
 
     def get_wan_ip_con_info(self):
@@ -990,7 +1008,7 @@ class Netgear(object):
         """
         return self._get(
             c.SERVICE_WAN_IP_CONNECTION,
-            "GetInfo",
+            c.GET_WAN_INFO,
         )
 
     def get_parental_control_enable_status(self):
@@ -1052,6 +1070,12 @@ class Netgear(object):
                 % (c.GET_SUPPORT_FEATURE_LIST_XML)
             ),
         )
+    
+    def get_sys_uptime(self):	
+        """
+        Get system uptime
+        """	
+        return self._get(c.SERVICE_DEVICE_INFO ,"GetSysUpTime",)
 
     def set_speed_test_start(self):
         """Start the speed test."""
@@ -1261,7 +1285,7 @@ class Netgear(object):
         """
         return self._get(
             c.SERVICE_WLAN_CONFIGURATION,
-            "GetInfo",
+            c.GET_2G_INFO,
         )
 
     def get_2g_guest_access_network_info(self):
