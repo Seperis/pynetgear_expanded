@@ -1071,7 +1071,7 @@ class Netgear(object):
             ),
         )
     
-    def get_sys_uptime(self):	
+    def get_system_uptime(self):	
         """
         Get system uptime
         """	
