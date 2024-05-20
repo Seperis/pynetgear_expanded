@@ -31,6 +31,7 @@ SERVICE_ADVANCED_QOS = "AdvancedQoS:1"
 SERVICE_WLAN_CONFIGURATION = "WLANConfiguration:1"
 SERVICE_WAN_ETHERNET_LINK_CONFIG = "WANEthernetLinkConfig:1"
 SERVICE_USER_OPTIONS_TC = "UserOptionsTC:1"
+SERVICE_TIME = "Time:1"
 
 # ---------------------
 # SERVICE_DEVICE_CONFIG
@@ -72,6 +73,7 @@ GET_DNS_MASQ_DEVICE_ID = "GetDNSMasqDeviceID"
 # ---------------------
 # SERVICE_DEVICE_INFO
 # ---------------------
+GET_DEVICE_INFO = "GetInfo"
 GET_SUPPORT_FEATURE_LIST_XML = "GetSupportFeatureListXML"
 GET_ATTACHED_DEVICES = "GetAttachDevice"
 GET_ATTACHED_DEVICES_2 = "GetAttachDevice2"
@@ -108,6 +110,7 @@ SET_5G_GUEST_ACCESS_ENABLED_2 = "Set5GGuestAccessEnabled2"  # 5G-2 R8000
 GET_5G_GUEST_ACCESS_ENABLED_2 = "Get5GGuestAccessEnabled2"  # 5G-2 R8000
 GET_WPA_SECURITY_KEYS = "GetWPASecurityKeys"
 GET_5G_WPA_SECURITY_KEYS = "Get5GWPASecurityKeys"
+GET_2G_INFO = "GetInfo"
 GET_5G_INFO = "Get5GInfo"
 # SET_5G_WLAN_WPA_PSK_BY_PASSPHRASE = 'Set5GWLANWPAPSKByPassphrase'
 GET_AVAILABLE_CHANNEL = "GetAvailableChannel"
@@ -127,6 +130,21 @@ GET_ETHERNET_LINK_STATUS = "GetEthernetLinkStatus"
 # SERVICE_USER_OPTIONS_TC
 # ---------------------
 SET_USER_OPTION_TC = "SetUserOptionsTC"
+
+# ---------------------
+# SERVICE_WAN_IP_CONNECTION
+# ---------------------
+GET_WAN_INFO = "GetInfo"
+
+# ---------------------
+# SERVICE_LAN_CONFIG_SECURITY
+# ---------------------
+GET_LAN_INFO = "GetInfo"
+
+# ---------------------
+# SERVICE_TIME
+# ---------------------
+GET_TIME_INFO = "GetInfo"
 
 # ---------------------
 # FORMATTING
