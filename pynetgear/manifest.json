@@ -1,0 +1,8 @@
+{
+  "domain": "pynetgear_expanded",
+  "name": "Pynetgear Expanded",
+  "version": "0.1.0",
+  "documentation": "http://github.com/seperis/pynetgear_expanded",
+  "dependencies": [],
+  "codeowners": ["@seperis"]
+}
