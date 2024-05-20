@@ -542,7 +542,7 @@ class Netgear(object):
 
         return True
 
-    def get_info(self, use_cache=True):
+    def get_device_info(self, use_cache=True):
         """
         Return router informations, like:
         - ModelName
@@ -562,7 +562,7 @@ class Netgear(object):
 
         response = self._get(
             c.SERVICE_DEVICE_INFO,
-            "GetInfo",
+            c.GET_DEVICE_INFO,
         )
         if response is None:
             return None
