@@ -913,7 +913,7 @@ class Netgear(object):
         """
         return self._get(
             c.SERVICE_DEVICE_CONFIG,
-            "GetInfo",
+            c.GET_DEVICE_CONFIG_INFO,
         )
 
     def get_block_device_enable_status(self):
