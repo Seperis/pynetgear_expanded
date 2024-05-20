@@ -44,7 +44,9 @@ UPDATE_NEW_FIRMWARE = "UpdateNewFirmware"
 CHECK_APP_NEW_FIRMWARE = "CheckAppNewFirmware"
 CONFIGURATION_STARTED = "ConfigurationStarted"
 CONFIGURATION_FINISHED = "ConfigurationFinished"
+
 GET_DEVICE_CONFIG_INFO = "GetInfo"
+
 # BLOCK/ALLOW DEVICE
 SET_BLOCK_DEVICE_ENABLE = "SetBlockDeviceEnable"
 GET_BLOCK_DEVICE_ENABLE_STATUS = "GetBlockDeviceEnableStatus"
