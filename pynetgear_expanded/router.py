@@ -1010,6 +1010,12 @@ class Netgear(object):
             c.SERVICE_WAN_IP_CONNECTION,
             c.GET_WAN_INFO,
         )
+    
+    def get_port_mapping_info(self):	
+        """
+        Get Port mapping info
+        """	
+        return self._get(c.SERVICE_WAN_IP_CONNECTION ,"GetPortMappingInfo",)
 
     def get_parental_control_enable_status(self):
         """Get parental control enable status and return boolean."""
@@ -1314,6 +1320,12 @@ class Netgear(object):
         return self._get(
             c.SERVICE_WLAN_CONFIGURATION, c.GET_5G_GUEST_ACCESS_NETWORK_INFO
         )
+    
+    def get_region(self):	
+        """
+        Get region
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetRegion",)  
 
     def get_smart_connect_enabled(self):
         """Get Smart Connect Enabled and return boolean."""
