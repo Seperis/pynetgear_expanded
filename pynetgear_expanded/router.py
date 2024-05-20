@@ -742,7 +742,52 @@ class Netgear(object):
             )
 
         return devices
+        
+    def get_attached_devices_3(self):
+        """
+        Alternate function to get_attached_devices_2 to return list of connected devices to the router with details.
+        Returns None if error occurred.
+        - IP
+        - Name
+        - NameUserSet
+        - MAC
+        - ConnectionType 
+        - VLANID 
+        - PortNumber 
+        - SSID
+        - Linkspeed 
+        - txRate
+        - rxRate
+        - SignalStrength
+        - ChannelNum
+        - AllowOrBlock 
+        - Schedule 
+        - DeviceType 
+        - DeviceTypeUserSet
+        - DeviceModel
+        - DeviceModelUserSet
+        - DeviceTypeV2 
+        - DeviceTypeNameV2
+        - Upload
+        - Download 
+        - QosPriority
+        - Grouping 
+        - SchedulePeriod
+        - ConnAPMAC 
+        - DeviceOS
+        """
+        node = self._get(
+            c.SERVICE_DEVICE_INFO,
+            c.GET_ATTACHED_DEVICES_2,
+            parseNode=".//GetAttachDevice2Response/NewAttachDevice",
+            return_node=True,
+        )
 
+        if node is None:
+            return None
+
+        return [{t.tag: t.text for t in sat} for sat in node]
+        
     def get_traffic_meter(self):
         """
         Return dict of traffic meter stats, like:
