@@ -1307,3 +1307,11 @@ class Netgear(object):
             c.SET_SMART_CONNECT_ENABLED,
             {"NewSmartConnectEnable": value},
         )
+    
+    def get_time_info(self):	
+        """
+        Gettime info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_TIME,c.GET_TIME_INFO,)
