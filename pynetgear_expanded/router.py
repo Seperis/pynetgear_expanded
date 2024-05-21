@@ -1320,7 +1320,67 @@ class Netgear(object):
         return self._get(
             c.SERVICE_WLAN_CONFIGURATION, c.GET_5G_GUEST_ACCESS_NETWORK_INFO
         )
-    
+    def get_available_channel_2g(self):
+        """
+        GetAvailableChanneland return dict like:
+        - NewAvailableChannel
+        """
+        success, response=self._make_request(
+            c.SERVICE_WLAN_CONFIGURATION,
+            c.GET_AVAILABLE_CHANNEL,
+            params={"NewBand": "2.4G"},
+        )
+        
+        if not success:
+            _LOGGER.error("Get available channel failed")
+            return None
+            
+        success, node = h.find_node(
+            response.text, ".//GetAvailableChannelResponse"
+        )
+        
+        if not success:
+            _LOGGER.error('Node failed?')
+            return None
+            
+        if node.text is None:
+            _LOGGER.error("Error parsing GetAvailableChannelResponse")
+            _LOGGER.debug(response.text)
+            return None
+            
+        parse_text=lambda text: text    
+        return {t.tag: parse_text(t.text) for t in node}
+        
+    def get_available_channel_5g(self):
+        """
+        GetAvailableChanneland return dict like:
+        - NewAvailableChannel
+        """
+        success, response=self._make_request(
+            c.SERVICE_WLAN_CONFIGURATION,
+            c.GET_AVAILABLE_CHANNEL,
+            params={"NewBand": "5G"},
+        )
+        
+        if not success:
+            _LOGGER.error("Get available channel failed")
+            return None
+            
+        success, node = h.find_node(
+            response.text, ".//GetAvailableChannelResponse"
+        )
+        
+        if not success:
+            _LOGGER.error('Node failed?')
+            return None
+            
+        if node.text is None:
+            _LOGGER.error("Error parsing GetAvailableChannelResponse")
+            _LOGGER.debug(response.text)
+            return None
+            
+        parse_text=lambda text: text    
+        return {t.tag: parse_text(t.text) for t in node}
     def get_region(self):	
         """
         Get region
