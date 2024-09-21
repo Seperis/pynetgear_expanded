@@ -1411,3 +1411,560 @@ class Netgear(object):
 
         """	
         return self._get(c.SERVICE_TIME,c.GET_TIME_INFO,)
+
+   def get_available_channel_2g(self):
+        """
+        GetAvailableChanneland return dict like:
+        - NewAvailableChannel
+        """
+        success, response=self._make_request(
+            c.SERVICE_WLAN_CONFIGURATION,
+            c.GET_AVAILABLE_CHANNEL,
+            params={"NewBand": "2.4G"},
+
+        )
+        
+        if not success:
+            _LOGGER.error("Get available channel failed")
+            return None
+            
+        success, node = h.find_node(
+            response.text, ".//GetAvailableChannelResponse"
+        )
+        
+        if not success:
+            _LOGGER.error('Node failed?')
+            return None
+            
+        if node.text is None:
+            _LOGGER.error("Error parsing GetAvailableChannelResponse")
+            _LOGGER.debug(response.text)
+            return None
+            
+        parse_text=lambda text: text    
+        return {t.tag: parse_text(t.text) for t in node}
+        
+    def get_available_channel_5g(self):
+        """
+        GetAvailableChanneland return dict like:
+        - NewAvailableChannel
+        """
+        success, response=self._make_request(
+            c.SERVICE_WLAN_CONFIGURATION,
+            c.GET_AVAILABLE_CHANNEL,
+            params={"NewBand": "5G"},
+
+        )
+        
+        if not success:
+            _LOGGER.error("Get available channel failed")
+            return None
+            
+        success, node = h.find_node(
+            response.text, ".//GetAvailableChannelResponse"
+        )
+        
+        if not success:
+            _LOGGER.error('Node failed?')
+            return None
+            
+        if node.text is None:
+            _LOGGER.error("Error parsing GetAvailableChannelResponse")
+            _LOGGER.debug(response.text)
+            return None
+            
+        parse_text=lambda text: text    
+        return {t.tag: parse_text(t.text) for t in node}
+
+        
+    def get_connection_type_info(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WAN_IP_CONNECTION ,"GetConnectionTypeInfo",)
+      
+    def get_wireless_mode(self):	
+
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetWirelessMode",)
+
+    def get_5g_wireless_mode(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"Get5GWirelessMode",)
+        
+    def get_channel_info(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetChannelInfo",)
+				
+    def get_5g_channel_info(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"Get5GChannelInfo",)
+				
+    def get_ssid(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetSSID",)
+				
+    def get_5g_ssid(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"Get5GSSID",)
+
+    def get_ssid_broadcast(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetSSIDBroadcast",)
+
+
+    def get_wep_security_keys(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetWEPSecurityKeys",)
+				
+    def get_5g_wep_security_keys(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"Get5GWEPSecurityKeys",)		
+				
+    def get_wpa_security_keys(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetWPASecurityKeys",)
+        
+    def get_5g_wpa_security_keys(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"Get5GWPASecurityKeys",)
+        
+    def get_wps_mode(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetWPSMode",)    
+		
+    def get_wps_pin_info(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetWPSPINInfo",)
+        
+    def is_5g_supported(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"Is5GSupported",)
+
+    def get_support_mode(self):	
+        """
+        Get Support Mode
+        """	
+        return self._get(c.SERVICE_WLAN_CONFIGURATION ,"GetSupportMode",)
+        
+    def get_internet_port_info(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_WAN_IP_CONNECTION ,"GetInternetPortInfo",)
+        
+    def get_block_site_info(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG ,"GetBlockSiteInfo",)
+        
+    def get_system_logs(self):	
+        """
+        Get System Logs
+        Still in progress
+
+        """	
+        return self._get(c.SERVICE_DEVICE_INFO ,"GetSystemLogs",)
+
+    def get_device_list_all(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG ,"GetDeviceListAll",)
+
+    def get_device_list_by_mode(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG ,"GetDeviceListByMode",)  
+
+    def get_qos_rules(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG ,"GetQoSRules",) 
+        
+        
+    def get_attach_device(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_DEVICE_INFO ,"GetAttachDevice",)
+        
+    def get_static_route_tbl(self):	
+        """
+        Get 2G Info and return dict like:
+        - NewEnable
+
+        """	
+        return self._get(c.SERVICE_DEVICE_CONFIG,"GetStaticRouteTbl",)
+        
+        
+    def get_support_mode2(self):	
+        """
+        Get Support Mode
+        """	
+        success, response=self._make_request(
+		c.SERVICE_WLAN_CONFIGURATION,
+		"GetSupportMode",
+		params={"NewBand": "2.4G"},)
+
+        if not success:
+            _LOGGER.error("Get support mode failed")
+            return None
+            
+        success, node = h.find_node(
+            response.text, ".//GetSupportModeResponse"
+        )
+        
+        if not success:
+            _LOGGER.error('Node failed?')
+            return None
+            
+        if node.text is None:
+            _LOGGER.error("Error parsing GetSupportModeResponse")
+            _LOGGER.debug(response.text)
+            return None
+            
+        parse_text=lambda text: text    
+        return {t.tag: parse_text(t.text) for t in node}
+        
+    def get_2g_wireless3_info(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetWireless3Info"
+        )
+        
+    def get_5g_wireless3_info(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "Get5GWireless3Info"
+        )
+        
+    def get_wireless1_enabled(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetWireless1Enabled"
+        )
+        
+    def get_wireless1_separate_ssid_enabled(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetWireless1SeparateSSIDEnabled"
+        )
+        
+    def get_wireless1_schedule(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetWireless1Schedule"
+        )
+        
+    def get_wireless2_schedule(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetWireless2Schedule"
+        )
+        
+    def get_wireless3_schedule(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetWireless3Schedule"
+        )
+
+    def get_guest_schedule(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetGuestSchedule"
+        )
+        
+    def get_guest_portal(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetGuestPortal"
+        )
+ 
+    def get_guest_portal_custom(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetGuestPortalCustom"
+        )
+ 
+    def get_wlan_vlan_profile(self):
+        return self._get(
+            c.SERVICE_WLAN_CONFIGURATION, "GetWLANVLANProfile"
+        )
+
+    def get_vlan_profile_by_index(self):
+        success, response=self._make_request(
+            c.SERVICE_DEVICE_CONFIG, 
+            "GetVLANProfileVIDByIndex",
+            params={"Index": "1"}
+        )
+        if not success:
+            _LOGGER.error("get_vlan_profile_by_index failed")
+            return None
+            
+        success, node = h.find_node(
+            response.text, ".//GetVLANProfileVIDByIndexResponse"
+        )
+        if not success:
+            _LOGGER.error('Node failed?')
+            return None
+            
+        if node.text is None:
+            _LOGGER.error("Error parsing GetVLANProfileVIDByIndexResponse")
+            _LOGGER.debug(response.text)
+            return None
+            
+        parse_text=lambda text: text    
+        return {t.tag: parse_text(t.text) for t in node}  
+ 
+    def get_remote_access(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetRemoteAccess"
+        )
+        
+    def get_configuration_timestamp(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetConfigurationTimestamp"
+        )
+        
+    def get_vlan_profile_config(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetVLANProfileConfiguration"
+        )
+        
+    def get_all_ethernet_vlan_config(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetAllEthernetVlanConfiguration"
+        )
+        
+    def get_mdns_config(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetMdnsConfiguration"
+        )
+        
+    def get_mdns_policy_tbl(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetMdnsPolicyTbl"
+        )        
+
+        
+    def get_all_config_lan(self):
+        return self._get(
+            c.SERVICE_LAN_CONFIG_SECURITY, "GetAllConfigLAN",
+            parseNode=".//GetAllConfigLANResponse/CurrentLANInfo/LANInfo",
+        )		
+
+    def get_config_mac_reservation(self):
+        success, response=self._make_request(
+            c.SERVICE_LAN_CONFIG_SECURITY, 
+            "GetConfigMACReservation",
+            params={"NewLANID": "lan2"}
+        )
+        if not success:
+            _LOGGER.error("get_config_mac_reservation failed")
+            return None
+            
+        success, node = h.find_node(
+            response.text, ".//GetConfigMACReservationResponse"
+        )
+        if not success:
+            _LOGGER.error('Node failed?')
+            return None
+            
+        if node.text is None:
+            _LOGGER.error("Error parsing GetConfigMACReservationResponse")
+            _LOGGER.debug(response.text)
+            return None
+            
+        parse_text=lambda text: text    
+        return {t.tag: parse_text(t.text) for t in node}   
+
+        
+
+    def get_fail_satellites_list(self):
+        """
+        Return list of connected satellites to the router with details.
+        Returns None if error occurred.
+        """
+        return self._get(
+            c.SERVICE_DEVICE_INFO, "GetFailSatelliteList"
+        )
+        
+    def get_missing_satellites(self):
+        """
+        Return list of connected satellites to the router with details.
+        Returns None if error occurred.
+        """
+        return self._get(
+            c.SERVICE_DEVICE_INFO, "GetMissingSatellites",
+            parseNode=".//GetMissingSatellitesResponse/MissingSatelliteList"
+        )       
+        
+   
+    def get_base_lan_status(self):
+        """
+        Return list of connected satellites to the router with details.
+        Returns None if error occurred.
+        """
+        return self._get(
+            c.SERVICE_DEVICE_INFO, "GetBaseLANStatus"
+        )   
+
+    def get_all_satellite_lan_status_v1(self):
+        """
+        Return list of connected satellites to the router with details.
+        Returns None if error occurred.
+        """
+        return self._get(
+            c.SERVICE_DEVICE_INFO, 
+			"GetAllSatelliteLANStatus",
+			parseNode=".//GetAllSatelliteLANStatusResponse/CurrentSatellites"
+        )
+        
+        
+    def get_all_satellite_lan_status_v2(self):
+        """
+        Return list of connected satellites to the router with details.
+        Returns None if error occurred.
+        """       
+        success, response = self._make_request(
+            c.SERVICE_DEVICE_INFO, 
+            "GetAllSatelliteLANStatus"
+        )
+        if not success:
+            return None
+
+        success, devices_node = h.find_node(
+            response.text, ".//GetAllSatelliteLANStatusResponse/CurrentSatellites"
+        )
+        if not success:
+            return None
+            
+    def get_all_satellite_lan_status(self):
+        """
+        Return list of connected satellites to the router with details.
+        Returns None if error occurred.
+        """               
+        node = self._get(
+            c.SERVICE_DEVICE_INFO,
+            "GetAllSatelliteLANStatus",
+            parseNode=".//GetAllSatelliteLANStatusResponse/CurrentSatellites",
+            return_node=True,
+        )
+        if node is None:
+            return None
+
+        return [{t.tag: t.text for t in sat} for sat in node]       
+        
+    def get_ethernet_radius_config(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetEthernetRadiusConfiguration"
+        )       
+        
+    def get_base_ethernet_radius_security(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetBaseEthernetRadiusSecurity"
+        )       
+              
+    def get_satellite_ethernet_radius_security(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetSatelliteEthernetRadiusSecurity"
+        )              
+        
+    def get_mvpn_status(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetMVPNStatus"
+        )              
+  
+    def get_mvpn_remote_isolation(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetMVPNRemoteIsolation"
+        )        
+    def get_content_filter(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, "GetContentFilter"
+        )        
+
+    def get_mac_acl_info_all_v1(self):
+        return self._get(
+            c.SERVICE_DEVICE_CONFIG, 
+            "GetMacACLInfoAll",
+            parseNode=".//GetMacACLInfoAllResponse/MacACLInfo",
+            return_node=True,
+        )     
+
+        if node is None:
+            return None
+
+        return [{t.tag: t.text for t in sat} for sat in node]
+
+
+    def get_mac_acl_info_all(self):
+        success, response = self._make_request(
+            c.SERVICE_DEVICE_CONFIG, "GetMacACLInfoAll"
+        )
+        if not success:
+            return None
+
+        success, devices_node = h.find_node(
+            response.text, ".//GetMacACLInfoAllResponse/MacACLInfo"
+        )
+        if not success:
+            return None        
