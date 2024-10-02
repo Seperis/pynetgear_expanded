@@ -1465,7 +1465,7 @@ class Netgear(object):
         """	
         return self._get(c.SERVICE_TIME,c.GET_TIME_INFO,)
 
-   def get_available_channel_2g(self):
+    def get_available_channel_2g(self):
         """
         GetAvailableChanneland return dict like:
         - NewAvailableChannel
