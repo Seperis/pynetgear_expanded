@@ -36,6 +36,21 @@ Device = namedtuple(
     ],
 )
 
+Device2 = namedtuple(
+    "Device",
+    [
+        "name",
+        "ip",
+        "mac",
+        "link",
+        "ssid",
+        "device",
+        "model",
+        "parent",
+        "os",
+    ],
+)
+
 
 class Netgear(object):
     """Represents a session to a Netgear Router."""
@@ -743,50 +758,88 @@ class Netgear(object):
 
         return devices
         
+    def get_attached_devices_2v(self):
+        """
+        Return list of connected devices to the router with details.
+
+        This call is slower and probably heavier on the router load.
+
+        Returns None if error occurred.
+        """
+        _LOGGER.debug("Get attached devices 2")
+
+        success, response = self._make_request(
+            c.SERVICE_DEVICE_INFO, c.GET_ATTACHED_DEVICES_2
+        )
+        if not success:
+            return None
+
+        success, devices_node = h.find_node(
+            response.text, ".//GetAttachDevice2Response/NewAttachDevice"
+        )
+        if not success:
+            return None
+
+        xml_devices = devices_node.findall("Device")
+        devices = []
+        for d in xml_devices:
+            name = h.xml_get(d, "Name")
+            ip = h.xml_get(d, "IP")
+            mac = h.xml_get(d, "MAC")
+            link = h.xml_get(d, "ConnectionType")
+            ssid = h.xml_get(d, "SSID")
+            device = h.xml_get(d, 'DeviceTypeNameV2')
+            model = h.xml_get(d, "DeviceModel")
+            parent = h.xml_get(d, "ConnAPMAC")
+            os = h.xml_get(d, "DeviceOS")
+            
+            devices.append(
+                Device2(
+                    name,
+                    ip,
+                    mac,
+                    link,
+                    ssid,
+                    device,
+                    model,
+                    parent,
+                    os
+                )
+            )
+
+        return devices
+        
     def get_attached_devices_3(self):
         """
         Alternate function to get_attached_devices_2 to return list of connected devices to the router with details.
         Returns None if error occurred.
-        - IP
-        - Name
-        - NameUserSet
-        - MAC
-        - ConnectionType 
-        - VLANID 
-        - PortNumber 
-        - SSID
-        - Linkspeed 
-        - txRate
-        - rxRate
-        - SignalStrength
-        - ChannelNum
-        - AllowOrBlock 
-        - Schedule 
-        - DeviceType 
-        - DeviceTypeUserSet
-        - DeviceModel
-        - DeviceModelUserSet
-        - DeviceTypeV2 
-        - DeviceTypeNameV2
-        - Upload
-        - Download 
-        - QosPriority
-        - Grouping 
-        - SchedulePeriod
-        - ConnAPMAC 
-        - DeviceOS
         """
-        node = self._get(
-            c.SERVICE_DEVICE_INFO,
-            c.GET_ATTACHED_DEVICES_2,
-            parseNode=".//GetAttachDevice2Response/NewAttachDevice",
-            return_node=True,
+        success, response = self._make_request(
+            c.SERVICE_DEVICE_INFO, c.GET_ATTACHED_DEVICES_2
         )
-
-        if node is None:
+        if not success:
             return None
 
-        return [{t.tag: t.text for t in sat} for sat in node]
+        success, node = h.find_node(
+            response.text, ".//GetAttachDevice2Response/NewAttachDevice"
+        )
+        if not success:
+            return None
+
+        xml_lan = node.findall("Device") 
+        resp_key=['Name','IP','MAC','ConnectionType','SSID','ChannelNum','SignalStrength','Linkspeed','DeviceTypeNameV2','DeviceModel','ConnAPMAC','DeviceOS','VLANID']
+        device_list={}
+        lst="device"
+        x=0
+        for d in xml_lan:
+            info={}
+            for i in range(0, 13):
+                key=resp_key[i]
+                value = h.xml_get(d, key)
+                info[key] = value
+            x=x+1
+            device_list[lst + str(x)]=info
+        return device_list
         
     def get_traffic_meter(self):
         """
