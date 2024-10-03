@@ -1,8 +1,8 @@
 from setuptools import setup
 from codecs import open
 
-REPO_URL = "http://github.com/MatMaul/pynetgear"
-VERSION = "0.10.10"
+REPO_URL = "https://github.com/Seperis/pynetgear_expanded"
+VERSION = "0.10.10.1"
 
 with open("requirements.txt") as f:
     required = f.read().splitlines()
@@ -22,6 +22,6 @@ setup(
     author_email="Paulus@PaulusSchoutsen.nl",
     license="MIT",
     install_requires=required,
-    packages=["pynetgear"],
+    packages=["pynetgear_expanded"],
     zip_safe=True,
 )
